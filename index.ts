@@ -13,7 +13,7 @@ Bun.serve({
       .with("/hello", () => new Response("Hello, World!"))
       .with("/fail", () => {
         console.error("Whoops, something failed");
-        throw new Response("Failed!", { status: 500 });
+        throw new Error("Failed!");
       })
       .with("/healthcheck", () => {
         return new Response("OK!");

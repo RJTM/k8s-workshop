@@ -6,4 +6,4 @@ COPY index.ts ./
 
 RUN bun install
 
-ENTRYPOINT [ "bun","run" ]
+CMD [ "bun","start" ]

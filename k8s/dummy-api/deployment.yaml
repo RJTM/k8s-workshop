@@ -1,0 +1,39 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dummy-api
+spec:
+  selector:
+    matchLabels:
+      app: dummy-api
+  template:
+    metadata:
+      labels:
+        app: dummy-api
+    spec:
+      containers:
+      - name: dummy-api
+        image: ghcr.io/rjtm/dummy-api:latest      
+        imagePullPolicy: Always
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - name: http
+          containerPort: 3000
+        livenessProbe:
+          httpGet:
+            path: /healthcheck
+            port: http
+          initialDelaySeconds: 2
+          periodSeconds: 20
+          timeoutSeconds: 3
+        readinessProbe:
+          httpGet:
+            path: /healthcheck
+            port: http
+          initialDelaySeconds: 2
+          periodSeconds: 20
+          timeoutSeconds: 3
